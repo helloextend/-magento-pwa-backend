@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\GraphQl\Schema\Type\Entity\DefaultMapper">
+        <arguments>
+            <argument name="map" xsi:type="array">
+                <item name="catalog_product" xsi:type="array">
+                    <item name="warranty" xsi:type="string">WarrantyProduct</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\StoreGraphQl\Model\Resolver\Store\StoreConfigDataProvider">
+        <arguments>
+            <argument name="extendedConfigData" xsi:type="array">
+                <item name="warranty_enabled" xsi:type="string">warranty/enableExtend/enable</item>
+                <item name="warranty_store_id" xsi:type="string">warranty/authentication/sandbox_store_id</item>
+                <item name="warranty_cart_offers_enabled" xsi:type="string">warranty/enableExtend/enableCartOffers</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\QuoteGraphQl\Model\Cart\BuyRequest\BuyRequestBuilder">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="extend_warranty" xsi:type="object">Extend\WarrantyGraphQl\Model\Cart\BuyRequest\WarrantyDataProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CatalogGraphQl\Model\ProductInterfaceTypeResolverComposite">
+        <arguments>
+            <argument name="productTypeNameResolvers" xsi:type="array">
+                <item name="warranty_product_type_resolver" xsi:type="object">Extend\WarrantyGraphQl\Model\WarrantyProductTypeResolver</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="\Magento\QuoteGraphQl\Model\Cart\UpdateCartItem">
+        <plugin name="extend_warranty_balance_cart" type="\Extend\WarrantyGraphQl\Plugin\Model\Cart\UpdateCartItemPlugin"/>
+    </type>
+    <preference for="\Extend\Warranty\Observer\Warranty\RemoveWarranties" type="\Extend\WarrantyGraphQl\Observer\RemoveWarranties"/>
+    <preference for="\Extend\Warranty\Helper\Api\Data" type="\Extend\WarrantyGraphQl\Helper\Data"/>
+
+</config>

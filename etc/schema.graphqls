@@ -1,0 +1,62 @@
+type StoreConfig @doc(description: "The type contains information about a store config.") {
+    warranty_enabled: Int @doc(description:"Extend Warranty Enabled Flag")
+    warranty_store_id: String @doc(description:"Extend Warranty Store Id")
+    warranty_cart_offers_enabled: Int @doc(description:"Extend Warranty Offers enabled for cart")
+    warranty_environment: String @doc(description:"Current Environment") @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\StoreConfig")
+    warranty_js_lib_url: String @doc(description:"Url to extend js stdlib") @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\StoreConfig")
+}
+
+type Mutation {
+    addWarrantyToCart(input: AddWarrantyToCartInput): AddWarrantyToCartOutput @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\AddWarrantyToCart")
+}
+
+input AddWarrantyToCartInput {
+    cart_id: String!
+    warranty: WarrantyPlanCartItem!
+    option: String,
+    qty: Int
+}
+
+type AddWarrantyToCartOutput {
+    cart: Cart!
+}
+
+type WarrantyCartItem implements CartItemInterface @doc(description: "Warranty Plan Cart Item") {
+    warranty: WarrantyInterface @doc(description:"Warranty options from  quote.cartItem") @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\Cart\\WarrantyResolver")
+    product: ProductInterface! @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\Cart\\WarrantyProductResolver")
+}
+
+input WarrantyPlanCartItem {
+    planId: String!
+    price: Int!
+    term: Int!
+    title: String!
+    product: String!
+}
+
+type WarrantyProduct implements ProductInterface, PhysicalProductInterface, CustomizableProductInterface @doc(description: "A simple product is tangible and are usually sold as single units or in fixed quantities.")
+{
+    price_range: PriceRange! @doc(description:"Warranty product doesn't has price so it's uses the Warranty Plan Price") @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\Product\\PriceRange")
+}
+
+input CartItemInput {
+    sku: String!
+    quantity: Float!
+    warranty: WarrantyPlanCartItem @doc(description:"Warranty object")
+}
+
+type SimpleCartItem {
+    hasWarranty: Int @doc(description:"Product has warranty item in cart") @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\CartItemHasWarranty")
+}
+
+type ConfigurableCartItem {
+    hasWarranty: Int @doc(description:"Product has warranty item in cart") @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\CartItemHasWarranty")
+}
+
+type WarrantyInterface {
+    planId: String!
+    price: Int!
+    term: Int!
+    title: String!
+    product: String!
+}
