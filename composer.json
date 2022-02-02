@@ -23,13 +23,5 @@
         "psr-4": {
             "Extend\\WarrantyGraphQl\\": ""
         }
-    },
-    "extra": {
-        "map": [
-            [
-                "*",
-                "Extend/WarrantyGraphQl"
-            ]
-        ]
     }
 }
