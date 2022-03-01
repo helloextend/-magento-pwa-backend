@@ -28,6 +28,7 @@ type WarrantyCartItem implements CartItemInterface @doc(description: "Warranty P
 
 input WarrantyPlanCartItem {
     planId: String!
+    coverageType: String
     price: Int!
     term: Int!
     title: String!
