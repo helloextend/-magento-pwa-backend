@@ -14,7 +14,6 @@
         <arguments>
             <argument name="extendedConfigData" xsi:type="array">
                 <item name="warranty_enabled" xsi:type="string">warranty/enableExtend/enable</item>
-                <item name="warranty_store_id" xsi:type="string">warranty/authentication/sandbox_store_id</item>
                 <item name="warranty_cart_offers_enabled" xsi:type="string">warranty/enableExtend/enableCartOffers</item>
             </argument>
         </arguments>

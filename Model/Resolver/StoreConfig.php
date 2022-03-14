@@ -29,9 +29,9 @@ class StoreConfig implements ResolverInterface
     protected $jsonSerializer;
 
     public function __construct(
-        WarrantyApiConfig $warrantyConfig,
+        WarrantyApiConfig    $warrantyConfig,
         WarrantyInstallation $warrantyInstallation,
-        Json $jsonSerializer
+        Json                 $jsonSerializer
     )
     {
         $this->warrantyApiConfig = $warrantyConfig;
@@ -40,11 +40,11 @@ class StoreConfig implements ResolverInterface
     }
 
     public function resolve(
-        Field $field,
-        $context,
+        Field       $field,
+                    $context,
         ResolveInfo $info,
-        array $value = null,
-        array $args = null
+        array       $value = null,
+        array       $args = null
     )
     {
         if (empty($this->computedSettings)) {
@@ -58,7 +58,8 @@ class StoreConfig implements ResolverInterface
                 $jsonConfig = $this->jsonSerializer->unserialize($jsonConfig);
                 $this->computedSettings = [
                     'warranty_environment' => $jsonConfig['environment'],
-                    'warranty_js_lib_url' => $this->warrantyInstallation->getJsMode()
+                    'warranty_js_lib_url' => $this->warrantyInstallation->getJsMode(),
+                    'warranty_store_id' => $jsonConfig['store_id']
                 ];
             }
         }
