@@ -1,6 +1,6 @@
 type StoreConfig @doc(description: "The type contains information about a store config.") {
     warranty_enabled: Int @doc(description:"Extend Warranty Enabled Flag")
-    warranty_store_id: String @doc(description:"Extend Warranty Store Id")
+    warranty_store_id: String @doc(description:"Extend Warranty Store Id") @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\StoreConfig")
     warranty_cart_offers_enabled: Int @doc(description:"Extend Warranty Offers enabled for cart")
     warranty_environment: String @doc(description:"Current Environment") @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\StoreConfig")
     warranty_js_lib_url: String @doc(description:"Url to extend js stdlib") @resolver(class: "Extend\\WarrantyGraphQl\\Model\\Resolver\\StoreConfig")
