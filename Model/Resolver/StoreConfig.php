@@ -59,7 +59,7 @@ class StoreConfig implements ResolverInterface
                 $this->computedSettings = [
                     'warranty_environment' => $jsonConfig['environment'],
                     'warranty_js_lib_url' => $this->warrantyInstallation->getJsMode(),
-                    'warranty_store_id' => $jsonConfig['store_id']
+                    'warranty_store_id' => isset($jsonConfig['storeId']) ? $jsonConfig['storeId'] : ''
                 ];
             }
         }
