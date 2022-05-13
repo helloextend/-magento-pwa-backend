@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="sales_quote_remove_item">
-        <observer name="remove_warranties" instance="Extend\Warranty\Observer\Warranty\RemoveWarranties"/>
+        <observer name="remove_warranties" instance="Extend\Warranty\Observer\QuoteRemoveItem"/>
+    </event>
+    <event name="extend_warranty_added_to_cart">
+        <observer name="track_warranty_added_to_cart" instance="\Extend\WarrantyGraphQl\Observer\TrackWarrantyAddedToCart"/>
     </event>
     <event name="extend_checkout_cart_update_items_after">
         <observer name="cart_normalize" instance="Extend\Warranty\Observer\Warranty\Normalize"/>

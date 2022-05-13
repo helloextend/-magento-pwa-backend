@@ -35,5 +35,5 @@
     <type name="\Magento\QuoteGraphQl\Model\Cart\UpdateCartItem">
         <plugin name="extend_warranty_balance_cart" type="\Extend\WarrantyGraphQl\Plugin\Model\Cart\UpdateCartItemPlugin"/>
     </type>
-    <preference for="\Extend\Warranty\Observer\Warranty\RemoveWarranties" type="\Extend\WarrantyGraphQl\Observer\RemoveWarranties"/>
+    <preference for="\Extend\Warranty\Observer\QuoteRemoveItem" type="\Extend\WarrantyGraphQl\Observer\RemoveWarranties"/>
 </config>
