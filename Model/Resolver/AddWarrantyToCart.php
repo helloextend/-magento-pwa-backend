@@ -4,6 +4,7 @@
 namespace Extend\WarrantyGraphQl\Model\Resolver;
 
 
+use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
@@ -23,7 +24,17 @@ class AddWarrantyToCart implements ResolverInterface
      */
     private $addProductsToCart;
 
+    /**
+     * @var WarrantyGraphQlHelper
+     */
     protected $warrantyGraphQlHelper;
+
+    /**
+     * Event manager proxy
+     *
+     * @var ManagerInterface
+     */
+    protected $_eventManager = null;
 
     /**
      * @param GetCartForUser $getCartForUser
@@ -32,11 +43,13 @@ class AddWarrantyToCart implements ResolverInterface
     public function __construct(
         GetCartForUser $getCartForUser,
         AddProductsToCart $addProductsToCart,
+        ManagerInterface $eventManager,
         WarrantyGraphQlHelper $warrantyGraphQlHelper
     )
     {
         $this->getCartForUser = $getCartForUser;
         $this->addProductsToCart = $addProductsToCart;
+        $this->_eventManager = $eventManager;
         $this->warrantyGraphQlHelper = $warrantyGraphQlHelper;
     }
 
@@ -88,7 +101,14 @@ class AddWarrantyToCart implements ResolverInterface
         $cartItems = [
             $cartItem
         ];
-        $this->addProductsToCart->execute($cart, $cartItems);;
+        $this->addProductsToCart->execute($cart, $cartItems);
+
+        $this->_eventManager->dispatch('extend_warranty_added_to_cart',
+            [
+                'warranty_data' => $warrantyRequestData,
+                'qty' => $_qty
+            ]
+        );
 
         return [
             'cart' => [

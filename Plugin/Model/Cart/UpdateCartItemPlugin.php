@@ -56,12 +56,15 @@ class UpdateCartItemPlugin
      */
     public function afterExecute($subject, $result, $cart, $cartItemId, $quantity, $customizableOptionsData)
     {
+        $cartId = $this->checkoutSession->getQuoteId();
         $this->checkoutSession->setQuoteId($cart->getId());
+
         $this->_eventManager->dispatch(
             'extend_checkout_cart_update_items_after',
             ['cart' => false]
         );
-        $this->checkoutSession->setQuoteId(null);
+
+        $this->checkoutSession->setQuoteId($cartId);
 
         return $result;
     }

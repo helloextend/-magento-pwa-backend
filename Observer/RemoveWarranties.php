@@ -9,7 +9,7 @@ use Magento\Checkout\Helper\Cart;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
-class RemoveWarranties implements ObserverInterface
+class RemoveWarranties extends \Extend\Warranty\Observer\QuoteRemoveItem implements ObserverInterface
 {
 
     /**
@@ -18,31 +18,11 @@ class RemoveWarranties implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        /** @var $item \Magento\Quote\Model\Quote\Item */
-        $item = $observer->getEvent()->getQuoteItem();
-        if ($item->getProductType() !== WarrantyType::TYPE_CODE) {
-            $sku = $item->getSku();
-
-            $quote = $item->getQuote();
-            $items = $quote->getAllItems();
-
-            $removeWarranty = true;
-            foreach ($items as $item) {
-                if ($item->getSku() === $sku) {
-                    $removeWarranty = false;
-                    break;
-                }
-            }
-
-            if ($removeWarranty) {
-                foreach ($items as $item) {
-                    if ($item->getProductType() === WarrantyType::TYPE_CODE &&
-                        $item->getOptionByCode('associated_product')->getValue() === $sku) {
-
-                        $quote->removeItem($item->getItemId());
-                    }
-                }
-            }
+        if (!$observer->getQuoteItem()) {
+            /** @var $item \Magento\Quote\Model\Quote\Item */
+            $item = $observer->getEvent()->getQuoteItem();
+            $observer->setData('quote_item', $item);
         }
+        return parent::execute($observer);
     }
 }
