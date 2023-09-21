@@ -33,6 +33,7 @@ input WarrantyPlanCartItem {
     term: Int!
     title: String!
     product: String!
+    offerPlanId: String!
 }
 
 type WarrantyProduct implements ProductInterface, PhysicalProductInterface, CustomizableProductInterface @doc(description: "A simple product is tangible and are usually sold as single units or in fixed quantities.")
