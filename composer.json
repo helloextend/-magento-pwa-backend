@@ -1,5 +1,5 @@
 {
-    "name": "extend/module-warranty-graph-ql",
+    "name": "helloextend/module-warranty-graph-ql",
     "description": "",
     "require": {
         "magento/framework": ">=101.0",
