@@ -1,6 +1,6 @@
 {
-    "name": "extend/module-warranty-graph-ql",
-    "description": "",
+    "name": "helloextend/module-warranty-graph-ql",
+    "description": "This is used for headless magento integrations with the extend product protection module",
     "require": {
         "magento/framework": ">=101.0",
         "magento/module-catalog": ">=102.0",
