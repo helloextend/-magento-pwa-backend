@@ -59,7 +59,7 @@ $ php bin/magento cache:clean
 To install/update the extension with Composer, the following commands must be executed:
 ```zsh
 $ composer config repositories.extend-graphql git https://github.com/helloextend/magento-pwa-backend/
-$ composer require extend/module-warranty-graph-ql=dev-master
+$ composer require helloextend/module-warranty-graph-ql
 $ php bin/magento setup:upgrade
 ```
 
